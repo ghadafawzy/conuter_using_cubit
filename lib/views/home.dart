@@ -11,25 +11,30 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Counter App Using bloc"),
+          title: const Text("Counter App Using cubit"),
         ),
         body: Center(
           child: BlocConsumer<CounterCubit, CounterState>(
             listener: (context,state){
-              if(state is CounterSuccess && state.counter==10){
+              if(state is CounterSuccess && state.counter<0){
                 showDialog(context: context,
                     builder: (BuildContext context){
                   return AlertDialog(
-                    title: Text("Note",),
-                    content: Text("you Reached to 10 number"),
+                    title: Text("Waring",),
+                    content: Text("Counter is negative!"),
                     actions: [
                       TextButton(onPressed:()
                       { Navigator.of(context).pop();
                         },
-                          child: Text('close'))
+                          child: Text('OK'))
                     ],
                   );
-                    });
+                });
+              }
+              if(state is CounterSuccess && state.counter==10){
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text ("Counter Reached 10!")),
+                );
               }
             },
             builder: (context, state) {
