@@ -8,11 +8,11 @@ class CounterCubit extends Cubit<CounterState> {
     incrementCounter();
   }
 
-  int counter = 0;
+  int counter = -1;
 
   void incrementCounter() {
     try{
-      emit(CounterSuccess(counter:counter++));
+      emit(CounterSuccess(counter:++counter));
     }catch(e){
       emit(CounterError(e.toString()));
     }
@@ -20,7 +20,7 @@ class CounterCubit extends Cubit<CounterState> {
 
   void decrementCounter() {
     try{
-      emit(CounterSuccess(counter:counter--));
+      emit(CounterSuccess(counter:--counter));
     }catch(e){
       emit(CounterError(e.toString()));
     }
